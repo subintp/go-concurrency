@@ -13,18 +13,22 @@ func fun(s string) {
 }
 
 func main() {
-	// Direct call
 	fun("direct call")
 
-	// TODO: write goroutine with different variants for function call.
-
-	// goroutine function call
+	go fun("go routine 1")
 
 	// goroutine with anonymous function
+	go func() {
+		fun("go routine 2")
+	}()
 
 	// goroutine with function value call
 
-	// wait for goroutines to end
+	fv := fun
 
+	go fv("go routine 3")
+
+	fmt.Println("waiting for go routines")
+	time.Sleep(100 * time.Millisecond)
 	fmt.Println("done..")
 }
